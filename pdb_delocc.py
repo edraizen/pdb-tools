@@ -62,8 +62,9 @@ def _remove_double_occupancies(fhandle):
             aname = line[12:16]
             resn = line[17:20]
             resi = line[22:26]
+            icode = line[26]
             chain = line[21]
-            atom_uid = (aname, resn, resi, chain)
+            atom_uid = (aname, resn, resi, chain, icode)
 
             if atom_uid not in read_atoms:
                 read_atoms.add(atom_uid)
