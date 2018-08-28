@@ -88,7 +88,7 @@ def _select_chain(fhandle, chain_id):
 if __name__ == '__main__':
     # Check Input
     chain, pdbfh = check_input(sys.argv[1:])
-
+    
     # Do the job
     new_pdb = _select_chain(pdbfh, chain)
 
