@@ -44,10 +44,10 @@ def check_input(args):
             end = len(args)
         elif os.path.isfile(args[-1]):
             # Options & File
-            pdbfh = open(args[1], 'r')
+            pdbfh = open(args[-1], 'r')
             end = -1
         else:
-            sys.stderr.write('File not found: ' + args[1] + '\n')
+            sys.stderr.write('File not found: ' + args[-1] + '\n')
             sys.stderr.write(USAGE)
             sys.exit(1)
 
@@ -77,7 +77,6 @@ def check_input(args):
         print
         if st_slice > en_slice:
             #Assume PDBs are numbered strangeley
-            print "YES"
             global SEQUENTIAL
             SEQUENTIAL = True
 
@@ -97,6 +96,7 @@ def _slice_pdb(fhandle, rslice):
             else:
                 yield line
     else:
+        print >> sys.stderr, "HERE"
         status = [False]*len(rslice)
         for line in fhandle:
             if line.startswith(('ATOM', 'HETATM', 'TER')):
@@ -105,13 +105,16 @@ def _slice_pdb(fhandle, rslice):
                     if res == st:
                         yield line
                         status[i] = True
-                    if res == en:
+                        break
+                    elif res == en:
                         yield line
                         status[i] = False
-
-                for i in xrange(len(rslice)):
-                    if status[i]:
-                        yield line
+                        break
+                else:
+                    for i in xrange(len(rslice)):
+                        if status[i]:
+                            yield line
+                            break
 
 
 if __name__ == '__main__':

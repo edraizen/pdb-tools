@@ -76,7 +76,6 @@ def _remove_double_occupancies(fhandle):
 
 
 if __name__ == '__main__':
-
     # Check Input
     pdbfh = check_input(sys.argv[1:])
 
