@@ -56,6 +56,7 @@ def _remove_double_occupancies(fhandle):
 
     coord_re = re.compile('^(ATOM|HETATM)')
     read_atoms = set()
+    read_residues = {}
     for line in fhandle:
         line = line.strip()
         if coord_re.match(line):
@@ -65,9 +66,12 @@ def _remove_double_occupancies(fhandle):
             icode = line[26]
             chain = line[21]
             atom_uid = (aname, resi, chain, icode) #(aname, resn, resi, chain, icode)
+            residue_uid = (resi, chain, icode)
 
-            if atom_uid not in read_atoms:
+            if atom_uid not in read_atoms and read_residues.get(residue_uid, resn) == resn:
                 read_atoms.add(atom_uid)
+                if residue_uid not in read_residues:
+                    read_residues[residue_uid] = resn
                 yield line[:16] + ' ' + line[17:] + '\n'  # Blank altloc field
             else:
                 continue
