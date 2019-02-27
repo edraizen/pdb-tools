@@ -15,7 +15,7 @@ of 'piping' several different commands. This is a rewrite of old
 FORTRAN77 code that was taking too much effort to compile. RIP.
 """
 
-from __future__ import print_function
+
 
 import gzip
 import re
@@ -23,9 +23,9 @@ import sys
 
 # Python 3 vs Python 2
 if sys.version_info[0] < 3:
-    from cStringIO import StringIO as IO
-    from urllib2 import Request, build_opener
-    from urllib2 import HTTPError
+    from io import StringIO as IO
+    from urllib.request import Request, build_opener
+    from urllib.error import HTTPError
 else:
     from io import BytesIO as IO
     from urllib.request import Request, build_opener

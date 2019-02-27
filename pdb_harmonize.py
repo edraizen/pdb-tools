@@ -14,7 +14,7 @@ Outputs two PDB files:
 usage: python {0} refe.pdb target.pdb
 """
 
-from __future__ import print_function
+
 
 import os
 import sys
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         print(__doc__.format(sys.argv[0]))
         sys.exit(1)
 
-    reference_pdb, target_pdb = map(os.path.abspath, cmd_args)
+    reference_pdb, target_pdb = list(map(os.path.abspath, cmd_args))
 
     reference_set = build_atom_set(reference_pdb)
     target_set = build_atom_set(target_pdb)

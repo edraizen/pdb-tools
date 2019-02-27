@@ -19,7 +19,7 @@ of 'piping' several different commands. This is a rewrite of old
 FORTRAN77 code that was taking too much effort to compile. RIP.
 """
 
-from __future__ import print_function
+
 
 import math
 import os

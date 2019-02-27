@@ -71,18 +71,18 @@ def check_input(args):
     for g in groups:
         bits = [b for b in g.split(':') if b.strip()]
         if len(bits) == 2:
-            st_slice, en_slice = map(int, bits)
-            resi_set = resi_set.union(range(st_slice, en_slice + 1))
+            st_slice, en_slice = list(map(int, bits))
+            resi_set = resi_set.union(list(range(st_slice, en_slice + 1)))
         elif len(bits) == 1 and rslice[0] == ':':
             st_slice = -99
             en_slice = int(bits[0])
-            resi_set = resi_set.union(range(st_slice, en_slice + 1))
+            resi_set = resi_set.union(list(range(st_slice, en_slice + 1)))
         elif len(bits) == 1 and rslice[-1] == ':':
             st_slice = int(bits[0])
             en_slice = 99999
-            resi_set = resi_set.union(range(st_slice, en_slice + 1))
+            resi_set = resi_set.union(list(range(st_slice, en_slice + 1)))
         elif len(bits) == 1 and bits[0].find(':') == -1:
-            resi_set = resi_set.union(map(int, bits))
+            resi_set = resi_set.union(list(map(int, bits)))
         else:
             sys.stderr.write(USAGE)
             sys.exit(1)

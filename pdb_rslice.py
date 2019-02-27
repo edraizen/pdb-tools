@@ -62,7 +62,7 @@ def check_input(args):
         match = re.match('[\-0-9]*:[\-0-9]*', _rslice)
         bits = [b for b in _rslice.split(':') if b.strip()]
         if match and len(bits) == 2:
-            st_slice, en_slice = map(int, bits)
+            st_slice, en_slice = list(map(int, bits))
         elif match and len(bits) == 1 and _rslice[0] == ':':
             st_slice = -9999
             en_slice = int(bits[0])
@@ -74,7 +74,7 @@ def check_input(args):
             sys.stderr.write(USAGE)
             sys.exit(1)
 
-        print
+        print()
         if st_slice > en_slice:
             #Assume PDBs are numbered strangeley
             global SEQUENTIAL
@@ -111,7 +111,7 @@ def _slice_pdb(fhandle, rslice):
                         status[i] = False
                         break
                 else:
-                    for i in xrange(len(rslice)):
+                    for i in range(len(rslice)):
                         if status[i]:
                             yield line
                             break
